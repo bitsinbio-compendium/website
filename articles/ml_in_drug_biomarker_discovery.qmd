@@ -1,0 +1,222 @@
+---
+title: "ML in Drug & Biomarker Discovery: The Pipeline"
+author: "Anu Kumar and Simran Chhabria, reviewed by Leo Zhu and Lexi Bounds"
+date-modified: today
+categories: ["ML"]
+embed: true
+---
+
+Since Machine Learning uses algorithms to learn from data, it can discover new medicines or repurpose existing drugs.
+
+Predictive modeling is one of the core superpowers of ML. Instead of testing thousands of compounds blindly, ML algorithms can forecast biological activity based on chemical structure and drug-drug interactions based on readily available datasets from patients and pharmaceutical companies.
+
+Machine learning algorithms improve with more data, like athletes with practice. As these algorithms are trained on data, they produce models: mathematical representations that capture patterns and relationships. ML models are only as good as the data it’s trained on, requiring extensive preparation before actual drug discovery begins.
+
+**Before you get started with ML, you can't skip this crucial step: Defining your question.**
+
+Are you:
+
+*   Discovering drug targets?
+*   Predicting compound behavior?
+*   Identifying disease biomarkers?
+
+
+Each path needs different data and approaches.
+
+Don’t jump into complex algorithms without considering whether basic statistics or lab work might actually be better—especially for [small rare disease](https://jamanetwork.com/journals/jamanetworkopen/fullarticle/2763223) datasets. Conduct a literature review to see what has already been done.
+
+Building an ML model that predicts a patient’s reaction to a drug requires a lot of consecutive steps. This is called a [“pipeline"](https://www.ibm.com/think/topics/machine-learning-pipeline), a series of processes that transforms raw, messy biological data into trained models.
+
+Below is a typical ML pipeline:
+
+1. **Accessing and collecting data:** gathering raw information from sources like electronic health records or public databases.
+2. **Selecting the model(s) (algorithms):** choosing the right algorithm(s) for the tas.
+3. **Pre-processing the data:** cleaning and organizing it. This can include handling missing values, scaling numbers, and splitting the dataset for training and testing.
+4. **Training then validating**: the algorithm learns from the data, adjusting itself to recognize useful patterns. Then we validate it on a test data set.
+5. **Evaluating:** measures how well the model performs on new data using other metrics like ROC-AUC or F1-score.
+6. **Deployment, understanding, and maintenance:** the model is deployed in clinical or research environments, and continuously monitored and updated (similar to software updates).
+
+In the context of drug and biomarker discovery, this pipeline powers everything from early compound screening to precision diagnostics.
+
+*Read more:*
+
+* [Machine Learning for Drug Discovery](https://www.mrlcg.com/resources/blog/machine-learning-for-drug-discovery/)
+* [AI vs Machine Learning](https://cloud.google.com/learn/artificial-intelligence-vs-machine-learning)
+* [Applications of Machine Learning for Drug Discovery](https://pmc.ncbi.nlm.nih.gov/articles/PMC6552674/)
+
+#### **1. Accessing and collecting data**
+An ML model is only as good as the data it’s trained on. Access to high quality data is the first major hurdle before any computing takes place. It starts with clearly defining the problem you want to solve, because that helps you decide what data you need.
+
+For example, if you're building a model to detect pneumonia from chest X-rays, you'll need a large number of labeled medical images. On the other hand, if you're making a product recommendation engine, you might rely on user behavior data like clicks and purchases. Depending on the project, you might also collect data through surveys, sensors, APIs, or web scraping.
+
+Once you know ***what*** you're looking for, you have to figure out ***where*** you can get it.
+
+Not all data is free or easily available as some sources require special permission or payment. Accessing data internal to your company or institute is a great place to start. You can also browse open databases through [Google Dataset Search](https://datasetsearch.research.google.com/), datasets and models on [Hugging Face](https://huggingface.co/datasets), or other institutes with open access initiatives, like the [Allen Institute](https://alleninstitute.github.io/abc_atlas_access/notebooks/getting_started.html), [GEO](https://www.ncbi.nlm.nih.gov/geo/), and [ENCODE](https://www.encodeproject.org/).
+
+Depending on where the data is stored, you’ll have to download it directly or work via a remote server (which might take extra steps and credentials). Techbio companies who create proprietary models as their primary product usually have connections to hospitals or other facilities where they can have access to quality patient data
+
+While you’re collecting your data, keep its structure in mind. It will heavily inform how you use the data to produce the model.
+
+Data comes in all shapes and sizes, and usually falls into one of two categories: Structured and Unstructured.
+
+* **Structured data**, like tables and CSV files, is organized and easy to work with
+* **Unstructured data**, like text documents, photos, or audio, often requires extra processing steps to use in downstream models.
+
+*Read more:*
+
+* [IBM: Structured vs Unstructured Data](https://www.ibm.com/think/topics/structured-vs-unstructured-data)
+* [Amazon AWS: When to use Structured vs Unstructured Data](https://aws.amazon.com/compare/the-difference-between-structured-data-and-unstructured-data/)
+* [Github: List of publicly available datasets](https://github.com/awesomedata/awesome-public-datasets?tab=readme-ov-file)
+
+#### **2. Model Selection: Choosing the Right Tool**
+We've emphasized how crucial data preprocessing is – so why select your model first?
+
+Your choice depends on the type of data, the biological question, and the amount of training data available.
+
+Model selection comes first because different algorithms need different data formats. Classification models need binary labels like “yes”/”no” so they can be mapped to numeric values (like 0 and 1), while transformer models need raw text broken down into smaller pieces (tokenized) and then converted to [embeddings](https://www.geeksforgeeks.org/what-are-embeddings-in-machine-learning-2/). There’s no one-size-fits-all algorithm, and if you process your data before choosing your model, chances are you’ll create a formatting nightmare and need to start over.
+
+**Some algorithms/models used in drug discovery can include:**
+
+* **Random Forests"** Predicting drug function from drug-target interactions and chemical structures.
+* **Support Vector Machines (SVMs):** Drug classification and pharmaceutical data analysis2.
+* **Convoluted Neural Networks (CNNs):** Predicting drug function based on chemical structure3.
+* **Graph Neural Networks (GNNs):** Used to model molecular structures and drug-target networks.
+
+*References*
+
+1. [Random-forest model for drug–target interaction prediction via Kullback–Leibler divergence | Journal of Cheminformatics | Full Text](https://jcheminf.biomedcentral.com/articles/10.1186/s13321-022-00644-1)
+2. [Drug design by machine learning: support vector machines for pharmaceutical data analysis](https://www.sciencedirect.com/science/article/abs/pii/S0097848501000948)
+3. [Learning Drug Functions from Chemical Structures with Convolutional Neural Networks and Random Forests | Journal of Chemical Information and Modeling](https://pubs.acs.org/doi/10.1021/acs.jcim.9b00236)
+
+#### **3. Pre-processing the data**
+Now that you've selected your model, it's time to format your data to match what your algorithm expects.
+
+Real-world biological data comes with serious challenges:
+
+* Missing values in Electronic Health Records (EHRs)
+* Noisy gene expression profiles
+* [Batch effects](https://bigomics.ch/blog/the-tricky-problem-of-batch-effects-in-biological-data/) in multi-omics data
+
+**Machine learning models are** ***picky***. They can’t handle NaNs (missing values), inconsistent units, or irrelevant noise - for example, background signals from an assay plate, or metadata like experiment dates that accidentally correlate with outcomes.
+
+Remember how we said classification models need binary labels converted to numbers, and transformer models need the text to be tokenized? The conversion happens during the preprocessing step.
+
+**Common techniques**:
+
+* **Imputation**: Filling in missing values using statistical methods (mean/mode) or predictive models like knearest neighbors.
+* **Normalization/Scaling**: Ensuring data ranges (e.g., gene expression levels) are comparable across samples.
+* **Dimensionality Reduction**: Techniques like [PCA](https://www.keboola.com/blog/pca-machine-learning#:~:text=Principal%20Component%20Analysis%20(PCA)%20is,%2Dnoising%2C%20and%20plenty%20more.), [UMAP](https://umap-learn.readthedocs.io/en/latest/basic_usage.html), or [t-SNE](https://www.datacamp.com/tutorial/introduction-t-sne) are often used to simplify high-dimensional datasets—like RNA-seq—without losing biological signal.
+
+*Read more:*
+
+* [Filling the Gaps: A Comparative Guide to Imputation Techniques in Machine Learning - MachineLearningMastery.com](https://machinelearningmastery.com/filling-the-gaps-a-comparative-guide-to-imputation-techniques-in-machine-learning/)
+* [Data Normalization Explained: Types, Examples, & Methods | Estuary](https://estuary.dev/blog/data-normalization/)
+
+#### **4. Training and validating the model**
+Training is where your algorithm transforms from a blank slate into a pattern-recognition powerhouse. Think of it like teaching a medical student to diagnose diseases—you show them thousands of cases until they can recognize the subtle signs that distinguish pneumonia from bronchitis.
+
+During training, the algorithm adjusts its internal parameters (weights and biases) to minimize prediction errors. For drug discovery, this might mean learning which molecular features correlate with toxicity, or which gene expression patterns predict drug resistance.
+
+**Key considerations during training**:
+
+* **Overfitting vs. Underfitting**: Your model might memorize the training data (overfitting) or fail to capture important patterns (underfitting). It's like a student who either memorizes answers without understanding concepts, or one who doesn't study enough to pass the exam.
+* **Cross-validation**: Split your data into training, validation, and test sets. Never let your model see the test data until final evaluation—that's cheating!
+* **Hyperparameter tuning**: Fine-tune settings like learning rate, batch size, or tree depth. Tools like Optuna or Weights & Biases can automate this process.
+
+**Training challenges in drug discovery**:
+
+* **Imbalanced datasets**: Most compounds aren't drugs, so your "active" class might be tiny compared to "inactive" compounds
+* **Multi-target effects**: Drugs often hit multiple targets, making simple binary classification insufficient
+* **Time-series effects**: Drug metabolism changes over time, requiring temporal modeling approaches
+* **In vitro vs. in vivo translation**: Cell-based or biochemical assays can mislead—strong activity in a test tube [doesn’t guarantee good behavior in a living organism](https://www.nejm.org/doi/full/10.1056/NEJMoa1210951).
+
+The training process can take anywhere from minutes (for simple models on small datasets) to weeks (for deep learning models on massive compound libraries). GPU clusters and cloud computing platforms like AWS, Google Cloud, or specialized platforms like Paperspace have made this more accessible to smaller research groups.
+
+*Read more:*
+
+* [Machine Learning Mastery: Overfitting and Underfitting](https://machinelearningmastery.com/overfitting-and-underfitting-with-machine-learning-algorithms/)
+* [Weights & Biases: Hyperparameter Optimization](https://wandb.ai/site/hyperparameter-optimization)
+* [DeepChem: Open Source Library for Drug Discovery](https://wandb.ai/site/hyperparameter-optimization)
+* [In Vitro and In Vivo Assessment of ADME and PK Properties During Lead Selection and Lead Optimization – Guidelines, Benchmarks and Rules of Thumb](https://www.ncbi.nlm.nih.gov/books/NBK326710/)
+
+#### **5. Evaluating: Measuring Success (And Failure)**
+So how do we know if the model actually works?
+
+We evaluate (or validate) a model by using a validation dataset, where the data is split into training vs validation data.
+
+* [**Training data**](https://www.hopsworks.ai/dictionary/training-data): used to fit the model—this is where the algorithm "learns" patterns
+* **Validation data**: used during model development to tune parameters and compare different models
+* **Test (or external) data**: a completely separate dataset used at the end to measure true performance. If the model does well here, it’s more likely to generalize to new, real-world data.
+
+Evaluation goes beyond simple accuracy—especially in drug discovery where false positives can waste millions of dollars and false negatives might miss life-saving treatments.
+
+**Common evaluation metrics**:
+
+* **ROC-AUC**: Measures how well your model distinguishes between active and inactive compounds across different thresholds
+* **Precision**: Of all compounds your model predicts as "hits," how many actually are? This metric is critical when experimental validation is expensive.
+* **Recall (Sensitivity)**: Of all true hits, how many did your model catch? Important for not missing promising candidates
+* **F1-score**: Balances precision and recall, useful when classes are imbalanced
+* **Matthews Correlation Coefficient (MCC)**: Often preferred for highly imbalanced datasets common in drug screening
+
+**Domain-specific considerations**: For drug discovery, you might also evaluate:
+
+* **Chemical diversity**: Does your model find diverse scaffolds or only variations of known drugs?
+* [**ADMET properties**](https://pmc.ncbi.nlm.nih.gov/articles/PMC6350845/): Can your model predict Absorption, Distribution, Metabolism, Excretion, and Toxicity?
+* **Synthetic accessibility**: Can the predicted compounds be synthesized??
+
+**The validation reality check**: Your model might score 95% accuracy on paper but fail miserably in the wet lab. This is why prospective validation—testing predictions on truly new compounds—is the gold standard. Companies like Atomwise and Benevolent AI have published cases where their ML predictions led to successful experimental validation.
+
+**Common pitfalls**:
+
+* **Data leakage**: When future information accidentally creeps into training data
+* **Batch effects**: Your model learns to distinguish between different experimental runs rather than biological signals
+* **Dataset shift**: Your training data doesn't represent the real-world scenario you're trying to solve
+
+*Read more:*
+
+* [Training vs evaluation vs test data sets](https://mlu-explain.github.io/train-test-validation/)
+* [Scikit-learn: Model Evaluation Guide](https://scikit-learn.org/stable/modules/model_evaluation.html)
+* [Journal of Chemical Information and Modeling: Best Practices for QSAR](https://pubs.acs.org/doi/10.1021/acs.jcim.9b00297)
+* [Nature Reviews Drug Discovery: AI in Drug Discovery Validation](https://www.nature.com/articles/s41573-021-00181-8)
+
+#### **6. Deployment, Understanding, and Maintenance: From Lab to Real World**
+Congratulations! Your model works. Now comes the arguably harder part: making it useful in the real world. Deployment isn't just about putting your model on a server—it's about integrating it into existing workflows, making it interpretable to scientists, and keeping it updated as new data arrives.
+
+**Deployment strategies**:
+
+* **API endpoints**: Allow other researchers or software to query your model programmatically
+* **Web applications**: User-friendly interfaces for non-technical scientists to upload compounds and get predictions
+* **Integration with existing platforms**: Many companies integrate ML models directly into their compound management systems or electronic lab notebooks
+
+**Making models interpretable**: Black-box predictions aren't enough in drug discovery—scientists need to understand why a compound was flagged as promising. Interpretability techniques include:
+
+* **SHAP (SHapley Additive exPlanations)**: Shows which molecular features contributed most to each prediction
+* **LIME (Local Interpretable Model-agnostic Explanations)**: Explains individual predictions by perturbing input features
+* **Attention maps**: For neural networks, visualize which parts of a molecule the model "focused on"
+* **Chemical space visualization**: Plot compounds in 2D/3D space to understand model decision boundaries
+
+**Continuous monitoring and updates**: ML models in drug discovery need constant care:
+
+* **Performance monitoring**: Track prediction accuracy on new experimental results
+* **Data drift detection**: Chemical libraries and assay protocols change over time
+* **Model retraining**: Incorporate new experimental data to improve predictions
+* **Version control**: Keep track of model versions and their performance metrics
+
+**Real-world success stories**:
+
+* **Recursion Pharmaceuticals**: Uses ML to analyze cellular imaging data and has multiple compounds in clinical trials
+* **Insitro**: Combines ML with experimental biology, recently partnered with Roche for $3 billion
+* **Exscientia**: First AI-designed drug to enter human clinical trials (completed Phase I in 2021)
+
+**Ethical considerations**:
+
+* **Algorithmic bias**: Ensure models work across different populations and don't perpetuate healthcare disparities
+* **Intellectual property**: How do you patent AI-discovered compounds?
+* **Regulatory approval**: FDA and EMA are still developing guidelines for AI-assisted drug development
+
+*Read more:*
+
+* [MLOps: Machine Learning Operations](https://ml-ops.org/)
+* [SHAP Documentation: Model Interpretability](https://shap.readthedocs.io/)
+* [Nature Reviews Drug Discovery: Regulatory Considerations for AI](https://www.nature.com/articles/s41573-022-00511-9)
+* [Recursion Pharmaceuticals: Case Studies](https://www.recursion.com/publications)

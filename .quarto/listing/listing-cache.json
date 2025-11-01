@@ -1,0 +1,7 @@
+{
+  "listingMap": {
+    "articles.qmd": [
+      "articles/*.qmd"
+    ]
+  }
+}
