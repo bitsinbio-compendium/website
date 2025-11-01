@@ -1,5 +1,5 @@
 ---
-title: "Intro"
+title: "Intro to ML"
 author: "Simran Chhabria, reviewed by Leo Zhu"
 date-modified: today
 categories: ["ML"]
