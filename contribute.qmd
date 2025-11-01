@@ -1,0 +1,31 @@
+---
+title: "Contribute"
+subtitle: "A community-led effort to explain complex bio/tech topics without the fluff."
+---
+
+The Bits in Bio Compendium is a down-to-earth knowledge base for anyone curious about the overlap between biology and technology. It’s a cross between a wiki and a curated guide, with two types of posts: Articles and Nodes
+
+* **Articles** cover application-level topics (e.g. What are the basic steps of a machine learning pipeline?).
+* **Nodes** break down foundational concepts (e.g. What is PCA and dimensionality reduction?).
+
+Together, these pieces link to each other like a web of knowledge, and point outwards to papers, open-source projects, and other resources so readers can dive deeper.
+
+We’re building this collaboratively, and there are many ways you can contribute — no matter your background.
+
+### Ways to Get Involved
+#### ✍️ Write (no expertise required)
+Writers don’t need to be an expert to write a draft! In fact, many of our best pieces start with someone curious about a topic and willing to distill it for others.
+
+You start with a bullet-point outline, get early feedback, then expand into a short draft (about 400–600 words). Then, after reviews, edit the piece into publish ready material. 
+
+#### 🔍 Review and Edit
+Reviewers help refine the draft, add diagrams or references, and ensure clarity. Our review process is lightweight: read through drafts, suggest edits, and point out where explanations might be unclear to newcomers. You’d spots gaps, confusing phrasing, or link examples.
+
+This role is especially valuable for people with cross-disciplinary backgrounds.
+
+#### 🌱 Share Expertise
+If you’re an expert in a specific area, we’d love to use you as a resource! 
+
+That could mean answering a quick question in Slack, pointing us to a must-read paper, or clarifying a nuance in a workflow.
+
+Want to contribute? If you haven’t already, join the Bits n Bio slack - link on our main [website](https://www.bitsinbio.org/)!

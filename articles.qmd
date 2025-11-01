@@ -1,0 +1,12 @@
+---
+title: "All Articles"
+listing:
+  contents:
+    - "articles/*.qmd"
+  type: grid
+  sort:
+    - "date"
+    - "title desc"
+  categories: true
+  fields: [image, date, title, author]
+---

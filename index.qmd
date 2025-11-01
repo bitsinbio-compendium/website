@@ -1,0 +1,11 @@
+---
+title: "Bits n Bio Compendium"
+subtitle: "A community-led effort to explain complex bio/tech topics without the fluff."
+---
+
+The Bits in Bio (BiB) Compendium is an ongoing educational initiative that provides clear, accessible explanations of key bioinformatics and techbio topics. It’s designed for “bio-curious” or “tech-curious” professionals—people with technical or biological backgrounds  who want to understand the opposite side of the techbio spectrum.
+
+
+
+
+
